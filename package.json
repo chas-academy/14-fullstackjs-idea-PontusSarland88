@@ -1,0 +1,33 @@
+{
+  "name": "14-fullstackjs-idea-pontussarland88",
+  "version": "1.0.0",
+  "description": "webpage with webshop for pralines",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chas-academy/14-fullstackjs-idea-PontusSarland88.git"
+  },
+  "author": "Pontus Särland",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chas-academy/14-fullstackjs-idea-PontusSarland88/issues"
+  },
+  "homepage": "https://github.com/chas-academy/14-fullstackjs-idea-PontusSarland88#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.3.0",
+    "mongoose": "^5.2.14",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "validator": "^10.7.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  }
+}
