@@ -6,9 +6,6 @@ const OrderRowSchema = new Schema({
     productId: {
         type: Schema.Types.ObjectId, ref: 'products'
     },
-    orderId: {
-        type: Schema.Types.ObjectId, ref: 'order'
-    },
     quantity: {
         type: Number,
         required: true

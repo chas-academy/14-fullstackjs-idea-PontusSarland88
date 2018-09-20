@@ -8,7 +8,7 @@ const ProductSchema =  new Schema({
         required: true
     },
     ingredients: {
-        type: String
+        type: [String]
     },
     description: {
         type: String
