@@ -42,26 +42,41 @@ router.get('/active', (req, res) => {
 // @access Private
 router.post('/create', passport.authenticate('jwt', {session: false}), (req, res) => {
     
-    const user = req.user;
+    // Check that input data is valid
+    const { errors, isValid } = validateProduct(req.body);
 
-    // Check if user has admin rights
-    if(user.role) {
-        const newProd = new Product({
-            name: req.body.name,
-            ingredients: req.body.ingredients,
-            description: req.body.description,
-            image: req.body.image,
-            price: req.body.price,
-            weight: req.body.weight,
-            available: req.body.available
+    Product.findOne({ name: req.body.name})
+        .then(prod => {
+            if(prod) {
+                errors.name = prod.name + ' already exists';
+                return res.status(400).json(errors);
+            } else {
+            
+                if(!isValid) {
+                    return res.status(400).json(errors);
+                }
+                const user = req.user;
+            
+                // Check if user has admin rights
+                if(user.role) {
+                    const newProd = new Product({
+                        name: req.body.name,
+                        ingredients: req.body.ingredients,
+                        description: req.body.description,
+                        image: req.body.image,
+                        price: req.body.price,
+                        weight: req.body.weight,
+                        available: req.body.available
+                    });
+                    newProd.save()
+                        .then(product => res.json(product))
+                        .catch(err => res.json(err));
+            
+                } else {
+                    return res.status(401).json("Not authorized");
+                }
+            }
         });
-        newProd.save()
-            .then(product => res.json(product))
-            .catch(err => res.json(err));
-
-    } else {
-        return res.status(401).json("Not authorized");
-    }
 });
 
 // @route update api/products/
@@ -69,14 +84,15 @@ router.post('/create', passport.authenticate('jwt', {session: false}), (req, res
 // @access Private
 router.put('/update/:id', passport.authenticate('jwt', {session: false}), (req, res) => {
     if(req.user.role) {
-
+        // Check that input data is valid
         const { errors, isValid } = validateProduct(req.body);
 
         if(!isValid) {
             return res.status(400).json(errors);
         }
-
+        // Get prod id from url
         const prodId = req.params.id;
+        // Create new object from req.body
         const newProds = {};
         newProds.name = req.body.name;
         newProds.ingredients = req.body.ingredients;
@@ -85,7 +101,7 @@ router.put('/update/:id', passport.authenticate('jwt', {session: false}), (req, 
         newProds.price = req.body.price;
         newProds.weight = req.body.weight;
         newProds.available = req.body.available;
-        
+        // Find product and update it
         Product.findByIdAndUpdate(prodId, {$set: newProds}, {new: true})
             .then(prod => res.json(prod))
             .catch(err => res.json(err));
