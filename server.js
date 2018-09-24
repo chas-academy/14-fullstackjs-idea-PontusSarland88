@@ -1,21 +1,31 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const passport = require('passport');
 
 const users = require('./routes/api/users');
 const products = require('./routes/api/products');
 
 const app = express();
 
+// Body parser middleware
+app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.json());
+
 // DB confix
 const db = require('./config/keys').mongoURI;
 
 // Connect to MongoDB
 mongoose
-    .connect(db)
+    .connect(db, { useNewUrlParser: true })
     .then(() => console.log('MongoDB Connected'))
     .catch(err => console.log(err));
 
-app.get('/', (req, res) => res.send('Hello'));
+// Passport middleware
+app.use(passport.initialize());
+
+// Passport config
+require('./config/passport')(passport);
 
 // Use Routes
 app.use('/api/users', users);
