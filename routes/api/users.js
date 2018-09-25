@@ -16,7 +16,7 @@ const User = require('../../models/User');
 // @desc Register users route
 // @access Public
 router.post('/register', (req, res) => {
-    const { errors, isValid } = validateRegisterInput(req.body);
+    const { errors, isValid } = validateRegisterInput(req.body, true);
 
     if(!isValid) {
         return res.status(400).json(errors);
@@ -74,7 +74,6 @@ router.post('/login', (req, res) => {
                 .then(isMatch => {
                     if(isMatch) {
                         // User Matched
-
                         const payload = { id: user.id, name: user.name, userRole: user.userRole } // Create JWT Payload
                         
                         // Sign Token
@@ -106,4 +105,62 @@ router.get('/current', passport.authenticate('jwt', { session: false}), (req, re
         email: req.user.email
     });
 });
+
+// @route GET api/users/all
+// @desc Return all Users
+// @access private
+router.get('/all', passport.authenticate('jwt', {session: false}), (req, res) => {
+   if(req.user.role) {
+       User.find()
+       .then(users =>  res.status(200).json(users))
+       .catch(err => res.status(500).json(err));
+   } else {
+       return res.status(401).json({msg: 'User not authorized'});
+   }
+});
+
+// @route GET api/users/:id
+// @desc Return one user from id
+// @access private
+router.get('/:id', passport.authenticate('jwt', {session: false}), (req, res) => {
+    if(req.user.role) {
+        User.findById(req.params.id)
+        .then(user => res.status(200).json(user))
+        .catch(err => res.status(400).json(err));
+    } else {
+        return res.status(401).json({msg: 'User not authorized'});
+    }
+});
+
+// @route put api/users/update/:id
+// @desc Update one user
+// @access private
+router.put('/update/:id', passport.authenticate('jwt', {session: false}), (req, res) => {
+    if(req.user.role) {
+        const { errors, isValid } = validateRegisterInput(req.body, false);
+
+        if(!isValid) {
+            return res.status(400).json(errors);
+        }
+        const userId = req.params.id;
+        const newUser = {};
+        newUser.role = req.body.role;
+        newUser.email = req.body.email;
+        newUser.name = req.body.name;
+
+        User.findOne({ email: req.body.email })
+            .then(user => {
+                if(user) {
+                    errors.email = 'Email already exists';
+                    return res.status(400).json(errors);
+                } else {
+                    User.findByIdAndUpdate(userId, {$set: newUser}, {new: true})
+                        .then(user => res.status(200).json(user))
+                        .catch(err => res.json(err));
+            }});
+    } else {
+        return res.status(401).json({msg: 'Not authorized to do that'});
+    }
+});
+
 module.exports = router;

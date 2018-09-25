@@ -3,7 +3,6 @@ const router = express.Router();
 const passport = require('passport');
 
 //Load models
-const User = require('../../models/User');
 const Product = require('../../models/Product');
 
 // Load Input Validation
@@ -21,6 +20,15 @@ router.get('/all', passport.authenticate('jwt', {session: false}), (req, res) =>
                 return res.status(204).json({error: "Could not find any products"});
             }
         });
+});
+
+// @route GET api/products/:id
+// @desc  get one product route
+// @access public
+router.get('/:id', (req, res) => {
+    Product.findById(req.params.id)
+        .then(prod => res.status(200).json(prod))
+        .catch(err => res.status(400).json(err));
 });
 
 // @route GET api/products/active
@@ -50,8 +58,7 @@ router.post('/create', passport.authenticate('jwt', {session: false}), (req, res
             if(prod) {
                 errors.name = prod.name + ' already exists';
                 return res.status(400).json(errors);
-            } else {
-            
+            } else {            
                 if(!isValid) {
                     return res.status(400).json(errors);
                 }
@@ -114,7 +121,18 @@ router.put('/update/:id', passport.authenticate('jwt', {session: false}), (req, 
 // @route delete api/products/
 // @desc  delete product
 // @access Private
-router.delete('/delete', passport.authenticate('jwt', { session: false}), (req, res) => {
-
-})
+router.delete('/delete/:id', passport.authenticate('jwt', { session: false}), (req, res) => {
+    if(req.user.role) {
+        Product.findById(req.params.id)
+            .then(product => {
+                product.remove()
+                .then(() => {
+                    res.status(200).json({msg: 'Product successfully deleted'});
+                });                
+            })
+            .catch(() => res.status(404).json({msg: 'No product found'})); 
+    } else {
+        return res.status(401).json({msg: 'User not authorized'});
+    }
+});
 module.exports = router;
