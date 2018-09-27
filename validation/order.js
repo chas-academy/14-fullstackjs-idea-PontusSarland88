@@ -4,7 +4,7 @@ const isEmpty = require('./is-empty');
 module.exports = function validateOrder(data) {
     let errors = {};
 
-    data.customerName = !isEmpty(data.customerName) ? data.customerName : '';
+    // data.customerName = !isEmpty(data.customerName) ? data.customerName : '';
     data.street = !isEmpty(data.street) ? data.street : '';
     data.zip = !isEmpty(data.zip) ? data.zip : '';
     data.city = !isEmpty(data.city) ? data.city : '';
