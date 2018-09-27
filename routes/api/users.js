@@ -163,4 +163,22 @@ router.put('/update/:id', passport.authenticate('jwt', {session: false}), (req, 
     }
 });
 
+// @route delete api/users/delete/:id
+// @desc Delete one user
+// @access private
+router.delete('/delete/:id', passport.authenticate('jwt', { session: false}), (req, res) => {
+    if(req.user.role) {
+        User.findById(req.params.id)
+            .then(user => {
+                user.remove()
+                .then(() => {
+                    res.status(200).json({msg: 'User successfully deleted'});
+                });                
+            })
+            .catch(() => res.status(404).json({msg: 'No user found'})); 
+    } else {
+        return res.status(401).json({msg: 'You are not authorized to do that'});
+    }
+});
+
 module.exports = router;
