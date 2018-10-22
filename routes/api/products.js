@@ -17,15 +17,15 @@ router.get('/all', passport.authenticate('jwt', {session: false}), (req, res) =>
             if(products.length > 0) {
                 return res.status(200).json(products);
             } else {
-                return res.status(204).json({error: "Could not find any products"});
+                return res.status(204).json({msg: "Could not find any products"});
             }
-        });
+        }).catch(err => res.status(400).json(err));
 });
 
 // @route GET api/products/:id
 // @desc  get one product route
 // @access public
-router.get('/:id', (req, res) => {
+router.get('/product/:id', (req, res) => {
     Product.findById(req.params.id)
         .then(prod => res.status(200).json(prod))
         .catch(err => res.status(400).json(err));
@@ -40,9 +40,9 @@ router.get('/active', (req, res) => {
             if(products.length > 0) {
                 return res.status(200).json(products);
             } else {
-                return res.status(500).json({error: 'Could not find any products'});
+                return res.status(500).json({msg: 'Could not find any products'});
             }
-        });
+        }).catch(err => res.status(400).json(err));
 });
 
 // @route POST api/products/

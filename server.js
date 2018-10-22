@@ -31,8 +31,8 @@ require('./config/passport')(passport);
 // Use Routes
 app.use('/api/users', users);
 app.use('/api/products', products);
-// app.use('/api/orderRows', orderRows);
 app.use('/api/orders', orders);
+// app.use('/api/orderRows', orderRows);
 
 const port = process.env.PORT || 5000;
 
