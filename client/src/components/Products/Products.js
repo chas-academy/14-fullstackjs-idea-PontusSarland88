@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-
+import Product from '../Products/Product/Product';
+import 'bulma/css/bulma.css';
+import 'bulma-extensions';
 
 export default class Products extends Component {    
     constructor() {
@@ -10,7 +12,7 @@ export default class Products extends Component {
       }
     componentDidMount() {
         const now = this;
-        fetch("/api/products/all")
+        fetch("/api/products/active")
           .then(function(response) {
             return response.json();
           })
@@ -20,12 +22,14 @@ export default class Products extends Component {
           .catch(function(error) {
             console.log(error);
           });
-
     }
+
     render() {
         return (
-        <div>
-            
+        <div className="section">
+            {this.state.productList.map((val, i) => {
+              return <Product key={i} productData={val} />;
+            })}
         </div>
         )
     }

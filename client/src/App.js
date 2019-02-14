@@ -7,6 +7,12 @@ import Header from './components/Header/Header';
 import Products from './components/Products/Products';
 // import Navbar from './components/Navbar/Navbar';
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faShoppingCart)
+
 class App extends Component {
   render() {
     return (
