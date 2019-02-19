@@ -10,7 +10,7 @@ import pralin from '../../pralin.jpg';
 function SelectList() {
   var rows = [];
   for (let i = 0; i  < 16; i ++) {
-    rows.push(<option id={i}>{i}</option>)
+    rows.push(<option key={i}>{i}</option>)
   }
   return (<select>{rows}</select>);
 }
@@ -43,7 +43,7 @@ export default class Products extends Component {
                     <p>Vikt: {this.props.productData.weight} g. </p> : null}
                     {this.props.productData.price ? 
                     <p>Pris: {this.props.productData.price} kr/st. </p> : null}
-                    <div class="control has-icons-left is-rounded">
+                    <div className="control has-icons-left is-rounded">
                     <div className="select">
                     <SelectList />
                     </div>

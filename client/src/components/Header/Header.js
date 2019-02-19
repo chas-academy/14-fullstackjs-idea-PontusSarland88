@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Navbar from '../Navbar/Navbar';
+import { Link } from 'react-router-dom';
 class Header extends Component {
     render() {
         return (
@@ -7,7 +8,7 @@ class Header extends Component {
                 <div className="hero-body">
                     <div className="container">
                         <h1 className="title" >
-                            <a href="/">Pralinbutiken</a>
+                            <Link to="/">Pralinbutiken</Link>
                         </h1>
                         <h2 className="subtitle">
                             something something...
