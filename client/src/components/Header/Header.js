@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Navbar from '../Navbar/Navbar';
 import { Link } from 'react-router-dom';
+import './Header.css';
+
 class Header extends Component {
     render() {
         return (

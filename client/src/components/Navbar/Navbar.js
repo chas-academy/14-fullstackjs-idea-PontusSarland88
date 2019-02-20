@@ -19,7 +19,7 @@ export default class Navbar extends Component {
                     Om
                 </Link>
                 <Link className="navbar-item" to="/login">
-                    Login
+                    Logga in
                 </Link>
                 <Link className="navbar-item" to="/register">
                     Registrera

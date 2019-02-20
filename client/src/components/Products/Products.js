@@ -17,7 +17,7 @@ export default class Products extends Component {
             return response.json();
           })
           .then(function(products) {
-            now.setState({ productList: products }); console.log(now.state.productList);
+            now.setState({ productList: products });
           })
           .catch(function(error) {
             console.log(error);
@@ -27,6 +27,9 @@ export default class Products extends Component {
     render() {
         return (
         <div className="section">
+          <div className="container ">
+            <h2 className="title">Produkter</h2>
+          </div>
             {this.state.productList.map((val, i) => {
               return <Product key={i} productData={val} />;
             })}

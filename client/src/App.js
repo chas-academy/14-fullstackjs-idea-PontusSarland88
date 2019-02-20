@@ -13,10 +13,10 @@ import { BrowserRouter as Router, Route} from 'react-router-dom';
 // import Navbar from './components/Navbar/Navbar';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faShoppingCart, faEnvelope, faUser, faKey } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faShoppingCart)
+library.add(faShoppingCart, faEnvelope, faUser, faKey)
 
 class App extends Component {
   render() {
