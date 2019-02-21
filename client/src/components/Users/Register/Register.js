@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import classnames from 'classnames';
+import { connect } from 'react-redux';
+import { registerUser } from '../../../actions/authActions';
 import axios from 'axios';
 
 class Register extends Component {
@@ -28,16 +32,21 @@ class Register extends Component {
             password: this.state.password,
             password2: this.state.password2
         }
-        axios.post('/api/users/register', newUser)
-            .then(res => console.log(res.data))
-            .catch(err => this.setState({
-                errors: err.response.data
-            })
-        );
+        this.props.registerUser(newUser, this.props.history);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.errors) {
+            this.setState({
+                errors: nextProps.errors
+            });
+        }
     }
     
     render() {
         const { errors } = this.state;
+        const { user } = this.props.auth;
+
     return (
       <div className="container is-centered">
         <h2 className="title">Register</h2>
@@ -87,7 +96,7 @@ class Register extends Component {
                         <i className="fas fa-check"></i>
                     </span>
                 </p>
-                {this.state.errors.email ?
+                {this.state.errors.password ?
                 <p className="help is-danger">{this.state.errors.password}</p> : null}
             </div>
             <div className="field">
@@ -121,4 +130,15 @@ class Register extends Component {
     )
   }
 }
-export default Register;
+
+Register.propTypes = {
+    registerUser: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired
+}
+
+const mapStateProps = (state) => ({
+    auth: state.auth,
+    errors: state.errors
+});
+export default connect(mapStateProps, { registerUser })(withRouter(Register));

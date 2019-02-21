@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 class Login extends Component {
     constructor() {
@@ -21,11 +22,15 @@ class Login extends Component {
             email: this.state.email,
             password: this.state.password,
         }
+        axios.post('/api/users/login', userLoginInput)
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
     }
+    
   render() {
     return (
         <div className="container is-centered">
-            <h2 className="title">Register</h2>
+            <h2 className="title">Logga in</h2>
             <form onSubmit={this.onSubmit}>
                 <div className="field">
                     <p className="control has-icons-left has-icons-right">
@@ -51,7 +56,7 @@ class Login extends Component {
                 </div>
                 <div className="field is-grouped">
                 <div className="control">
-                    <button className="button is-success is-link">Registrera</button>
+                    <button className="button is-success is-link">Logga in</button>
                 </div>
                 <div className="control">
                     <Link className="button is-danger is-text" to="/">
