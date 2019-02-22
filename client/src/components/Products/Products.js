@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import Product from '../Products/Product/Product';
 import 'bulma/css/bulma.css';
 import 'bulma-extensions';
-
-export default class Products extends Component {    
+// TODO: is this needed here? prop-types and connect
+import { PropTypes } from 'prop-types';
+import { connect } from 'react-redux';
+class Products extends Component {    
     constructor() {
         super();
         this.state = {
@@ -37,3 +39,13 @@ export default class Products extends Component {
         )
     }
 }
+// TODO: is this needed here?
+Products.propTypes = {
+  auth: PropTypes.object.isRequired
+}
+// TODO: is this needed here?
+const mapStateProps = (state) => ({
+  auth: state.auth
+});
+
+export default connect(mapStateProps)(Products); 

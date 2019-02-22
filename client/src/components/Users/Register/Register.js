@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { registerUser } from '../../../actions/authActions';
-import axios from 'axios';
 
 class Register extends Component {
     constructor() {
@@ -33,6 +32,12 @@ class Register extends Component {
             password2: this.state.password2
         }
         this.props.registerUser(newUser, this.props.history);
+    }
+
+    componentDidMount() {
+        if(this.props.auth.isAuthenticated) {
+            this.props.history.push('/dashboard');
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -64,8 +69,8 @@ class Register extends Component {
                         <i className="fas fa-check"></i>
                     </span>
                 </p>
-                {this.state.errors.name ?
-            <p className="help is-danger">{this.state.errors.name}</p> : null}
+                {errors.name ?
+            <p className="help is-danger">{errors.name}</p> : null}
             </div>
             <div className="field">
                 <p className="control has-icons-left has-icons-right">

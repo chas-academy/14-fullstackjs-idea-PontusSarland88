@@ -1,14 +1,18 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import classnames from 'classnames';
+import { loginUser } from '../../../actions/authActions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 
 class Login extends Component {
     constructor() {
         super();
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            errors: {}
         }
     }
 
@@ -22,19 +26,37 @@ class Login extends Component {
             email: this.state.email,
             password: this.state.password,
         }
-        axios.post('/api/users/login', userLoginInput)
-            .then(res => console.log(res))
-            .catch(err => console.log(err));
+        this.props.loginUser(userLoginInput);
     }
-    
+
+    componentDidMount() {
+        if(this.props.auth.isAuthenticated) {
+            this.props.history.push('/dashboard');
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.auth.isAuthenticated) {
+            this.props.history.push('/dashboard');
+        }
+
+        if(nextProps.errors) {
+            this.setState({errors: nextProps.errors});
+        }
+    }
+
   render() {
+    const { errors } = this.state;
     return (
         <div className="container is-centered">
             <h2 className="title">Logga in</h2>
             <form onSubmit={this.onSubmit}>
                 <div className="field">
                     <p className="control has-icons-left has-icons-right">
-                        <input className="input" name="email" type="email" placeholder="Email" value={this.state.email} onChange={this.onChange}/>
+                        <input className={classnames('input', {
+                            'is-danger': errors.email
+                        })} 
+                        name="email" type="email" placeholder="Email" value={this.state.email} onChange={this.onChange}/>
                         <span className="icon is-small is-left">
                             <FontAwesomeIcon icon="envelope" />
                         </span>
@@ -42,10 +64,15 @@ class Login extends Component {
                             <i className="fas fa-check"></i>
                         </span>
                     </p>
+                    {errors.email ?
+                    <p className="help is-danger">{errors.email}</p> : null}
                 </div>
                 <div className="field">
                     <p className="control has-icons-left has-icons-right">
-                        <input className="input" name="password" type="password" placeholder="Lösenord" value={this.state.password} onChange={this.onChange}/>
+                        <input className={classnames('input', {
+                            'is-danger': errors.password
+                        })}
+                        name="password" type="password" placeholder="Lösenord" value={this.state.password} onChange={this.onChange}/>
                         <span className="icon is-small is-left">
                             <FontAwesomeIcon icon="key" />
                         </span>
@@ -53,6 +80,8 @@ class Login extends Component {
                             <i className="fas fa-check"></i>
                         </span>
                     </p>
+                    {errors.password ?
+                    <p className="help is-danger">{errors.password}</p> : null}
                 </div>
                 <div className="field is-grouped">
                 <div className="control">
@@ -69,4 +98,16 @@ class Login extends Component {
     )
   }
 }
-export default Login;
+
+Login.propTypes = {
+    loginUser: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired
+}
+
+const mapStateToProps = (state) => ({
+    auth: state.auth,
+    errors: state.errors
+})
+
+export default connect(mapStateToProps, { loginUser })(Login);

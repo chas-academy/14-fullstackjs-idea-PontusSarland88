@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import jwt_decode from 'jwt-decode';
+import setAuthToken from './utils/setAuthToken';
+import { setCurrentUser, logoutUser } from './actions/authActions';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route} from 'react-router-dom';
 
@@ -19,6 +22,25 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faShoppingCart, faEnvelope, faUser, faKey } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faShoppingCart, faEnvelope, faUser, faKey);
+
+// checkForToken
+if(localStorage.jwtToken) {
+  // Set the auth token header auth
+  setAuthToken(localStorage.jwtToken);
+  // decode token and get user info and exp
+  const decoded = jwt_decode(localStorage.jwtToken);
+  // Set user and isAuthenticatad
+  store.dispatch(setCurrentUser(decoded));
+  // Check if token has expired
+  const currentTime = Date.now() / 1000;
+  if(decoded.exp < currentTime) {
+    store.dispatch(logoutUser);
+    // TODO: clear current profile.
+    
+    window.location.href = '/login';
+  }
+}
+
 
 class App extends Component {
   render() {
