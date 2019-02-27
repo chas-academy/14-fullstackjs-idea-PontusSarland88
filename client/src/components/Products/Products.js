@@ -19,7 +19,7 @@ class Products extends Component {
             return response.json();
           })
           .then(function(products) {
-            now.setState({ productList: products });
+            now.setState({productList: products});
           })
           .catch(function(error) {
             console.log(error);
