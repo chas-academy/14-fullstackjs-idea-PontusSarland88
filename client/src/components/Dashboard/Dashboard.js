@@ -14,6 +14,7 @@ class Dashboard extends Component {
         </div>
         <div className="box">
           <article className="media">
+          <div className="box">
             <Link to="/dashboard/edit/products" className="media-content box">
               <div className="content">
                 <h3 className="is-center"> 
@@ -21,6 +22,8 @@ class Dashboard extends Component {
                 </h3>
               </div>
             </Link>
+          </div>
+          <div className="box">
             <Link to="/dashboard/add/product" className="media-content box">
               <div className="content">
                 <h3 className="is-center"> 
@@ -28,6 +31,7 @@ class Dashboard extends Component {
                 </h3>
               </div>
             </Link>
+          </div>
           </article>
         </div>
         <div className="box">
