@@ -10,6 +10,7 @@ import store from './store';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { removeAllProducts } from './actions/productActions';
 
 // checkForToken
 if(localStorage.jwtToken) {
@@ -24,7 +25,8 @@ if(localStorage.jwtToken) {
   if(decoded.exp < currentTime) {
     store.dispatch(logoutUser());
     // TODO: clear current profile.
-    
+    // TODO: Clear all redux data.
+    store.dispatch(removeAllProducts());
     window.location.href = '/login';
   }
 }

@@ -40,3 +40,7 @@ export const getAllProducts = () => (dispatch) => {
       payload: err.response.data,
     }));
 };
+
+export const removeAllProducts = () => (dispatch) => {
+  dispatch(setAllProducts({}));
+};
