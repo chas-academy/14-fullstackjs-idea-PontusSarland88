@@ -41,6 +41,15 @@ export const getAllProducts = () => (dispatch) => {
     }));
 };
 
+export const deleteProduct = (productToDeleteId, history) => (dispatch) => {
+  axios.delete(`/api/products/delete/${productToDeleteId}`)
+    .then(() => history.push('/dashboard'))
+    .catch(err => dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data,
+    }));
+};
+
 export const removeAllProducts = () => (dispatch) => {
   dispatch(setAllProducts({}));
 };

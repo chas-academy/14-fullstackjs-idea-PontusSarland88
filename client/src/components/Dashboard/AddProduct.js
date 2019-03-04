@@ -98,7 +98,7 @@ class AddProduct extends Component {
                     <button className="button is-success is-link">Spara produkt</button>
                 </div>
                 <div className="control">
-                    <Link className="button is-danger is-text" to="/">
+                    <Link className="button is-danger is-text" to="/dashboard">
                         Avbryt
                     </Link>
                 </div>

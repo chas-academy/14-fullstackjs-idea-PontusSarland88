@@ -32,9 +32,11 @@ class Products extends Component {
           <div className="container ">
             <h2 className="title">Produkter</h2>
           </div>
-            {this.state.productList.map((val, i) => {
+            {this.state.productList.length > 0 ?
+              this.state.productList.map((val, i) => {
               return <Product key={i} productData={val} />;
-            })}
+            })
+            : <p>Inga produkter finns tillgängliga</p>}
         </div>
         )
     }

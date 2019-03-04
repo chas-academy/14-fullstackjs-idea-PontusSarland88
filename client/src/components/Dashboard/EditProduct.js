@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { updateProduct } from '../../actions/productActions';
+import { updateProduct, deleteProduct } from '../../actions/productActions';
 
 
 function checkValue(value) {
@@ -13,7 +13,7 @@ class EditProducts extends Component {
   constructor() {
     super();
     this.state = {
-    //   allProducts: [],
+      //   allProducts: [],
       id: '',
       name: '',
       image: '',
@@ -25,7 +25,7 @@ class EditProducts extends Component {
       errors: {},
     };
   }
-
+  
   componentWillMount() {
     this.setState({
       id: this.props.productData._id,
@@ -52,21 +52,26 @@ class EditProducts extends Component {
     }
     this.props.updateProduct(updatedProduct, this.props.history);
   }
-
+  
   onChange = (e, value) => {
     this.setState({[e.target.name]: value});
   }
-
+  
   checkboxCheck = (e) => {
     this.setState({[e.target.name]: this.refs.availableCheck.checked});
   }
-
+  
   checkboxValue = () => {
     return this.state.available ? "checked" : ""
   }
+  
+  deleteAProduct = (e) => {
+    e.preventDefault();
+    this.props.deleteProduct(this.state.id, this.props.history);
+  }
+ 
 
   render() {
-    // const { products } = this.props.
     return (
       <div className="section">
         <div>
@@ -83,7 +88,10 @@ class EditProducts extends Component {
               <div className="field is-grouped">
               <div className="control">
                   <button className="button is-success is-link">Spara produkt</button>
-              </div> 
+              </div>
+              <div className="control">
+                  <button className="button is-danger is-link" onClick={e => this.deleteAProduct(e, this.setState.id)}>Ta bort produkt</button>
+              </div>  
             </div>
           </form>
         </div>
@@ -94,7 +102,7 @@ class EditProducts extends Component {
 
 EditProducts.propTypes = {
   updateProduct: PropTypes.func.isRequired,
-  // getAllProducts: PropTypes.func.isRequired,
+  deleteProduct: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 }
 
@@ -103,4 +111,4 @@ const mapStateToProps = (state) => ({
     products: state.products,
 })
 
-export default connect(mapStateToProps, { updateProduct })(withRouter(EditProducts));
+export default connect(mapStateToProps, { updateProduct, deleteProduct })(withRouter(EditProducts));

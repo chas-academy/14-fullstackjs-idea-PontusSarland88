@@ -3,25 +3,14 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { updateProduct, getAllProducts } from '../../actions/productActions';
+import { getAllProducts } from '../../actions/productActions';
 import EditProduct from './EditProduct';
 
-
-function checkValue(value) {
-  return value ? value : "";
-}
 class EditProducts extends Component {
   constructor() {
     super();
     this.state = {
       allProducts: [],
-      name: '',
-      image: '',
-      description: '',
-      ingredients: '',
-      price: '',
-      weight:'',
-      available: false,
       errors: {},
     };
   }
@@ -35,7 +24,6 @@ class EditProducts extends Component {
       allProducts: nextProps.products.products,
     });
   }
-
 
   render() {
     return (
@@ -58,7 +46,6 @@ class EditProducts extends Component {
 }
 
 EditProducts.propTypes = {
-  updateProduct: PropTypes.func.isRequired,
   getAllProducts: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 }
@@ -68,4 +55,4 @@ const mapStateToProps = (state) => ({
     products: state.products,
 })
 
-export default connect(mapStateToProps, { updateProduct, getAllProducts })(withRouter(EditProducts));
+export default connect(mapStateToProps, { getAllProducts })(withRouter(EditProducts));
