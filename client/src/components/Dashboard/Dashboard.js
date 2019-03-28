@@ -35,15 +35,17 @@ class Dashboard extends Component {
           </article>
         </div>
         <div className="box">
-          <article className="media">
-            <div className="media-content box">
-              <div className="content">
-                <h3 className="is-center"> 
-                Användare
-                </h3>
+          <Link to="/dashboard/edit/users" className="media-content box">
+            <article className="media">
+              <div className="media-content box">
+                <div className="content">
+                  <h3 className="is-center"> 
+                  Användare
+                  </h3>
+                </div>
               </div>
-            </div>
-          </article>
+            </article>
+          </Link>
         </div>
         <div className="box">
           <article className="media">

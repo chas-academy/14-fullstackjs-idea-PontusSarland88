@@ -13,6 +13,7 @@ import Login from './components/Users/Login/Login';
 import Dashboard from './components/Dashboard/Dashboard';
 import AddProduct from './components/Dashboard/AddProduct';
 import EditProducts from './components/Dashboard/EditProducts';
+import EditUsers from './components/Dashboard/EditUsers';
 // import Navbar from './components/Navbar/Navbar';
 import { library } from '@fortawesome/fontawesome-svg-core'
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -34,6 +35,7 @@ class App extends Component {
               <Route exact path="/dashboard" component={ Dashboard } />
               <Route exact path="/dashboard/add/product" component={ AddProduct } />
               <Route exact path="/dashboard/edit/products" component={ EditProducts } />
+              <Route exact path="/dashboard/edit/users" component={ EditUsers } />
             </div>
           </main>
           <Footer />  

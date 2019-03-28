@@ -9,7 +9,7 @@ import { updateProduct, deleteProduct } from '../../actions/productActions';
 function checkValue(value) {
   return value ? value : "";
 }
-class EditProducts extends Component {
+class EditProduct extends Component {
   constructor() {
     super();
     this.state = {
@@ -90,7 +90,7 @@ class EditProducts extends Component {
                   <button className="button is-success is-link">Spara produkt</button>
               </div>
               <div className="control">
-                  <button className="button is-danger is-link" onClick={e => this.deleteAProduct(e, this.setState.id)}>Ta bort produkt</button>
+                  <button className="button is-danger is-link" onClick={e => this.deleteAProduct(e, this.state.id)}>Ta bort produkt</button>
               </div>  
             </div>
           </form>
@@ -100,7 +100,7 @@ class EditProducts extends Component {
   }
 }
 
-EditProducts.propTypes = {
+EditProduct.propTypes = {
   updateProduct: PropTypes.func.isRequired,
   deleteProduct: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
@@ -111,4 +111,4 @@ const mapStateToProps = (state) => ({
     products: state.products,
 })
 
-export default connect(mapStateToProps, { updateProduct, deleteProduct })(withRouter(EditProducts));
+export default connect(mapStateToProps, { updateProduct, deleteProduct })(withRouter(EditProduct));
