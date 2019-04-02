@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { updateProduct, deleteProduct } from '../../actions/productActions';
-
+import './styles.css';
 
 function checkValue(value) {
   return value ? value : "";
@@ -57,19 +57,30 @@ class EditProduct extends Component {
     this.setState({[e.target.name]: value});
   }
   
-  checkboxCheck = (e) => {
-    this.setState({[e.target.name]: this.refs.availableCheck.checked});
-  }
+  // checkboxCheck = (e) => {
+  //   this.setState({[e.target.name]: this.refs.availableCheck.checked});
+  // }
   
-  checkboxValue = () => {
-    return this.state.available ? "checked" : ""
-  }
+  // checkboxValue = () => {
+  //   return this.state.available ? "checked" : ""
+  // }
   
   deleteAProduct = (e) => {
     e.preventDefault();
     this.props.deleteProduct(this.state.id, this.props.history);
   }
  
+  changeActive= (e) => {
+    if(this.state.available) {
+      this.setState({
+        available: false
+      });
+    } else {
+      this.setState({
+        available: true
+      });
+    }
+  }
 
   render() {
     return (
@@ -83,7 +94,11 @@ class EditProduct extends Component {
               <input className="input" name="ingredients" value={checkValue(this.state.ingredients)} onChange={e => this.onChange(e, e.target.value)}/>
               <input className="input" name="price" value={checkValue(this.state.price)} onChange={e => this.onChange(e, e.target.value)}/>
               <input className="input" name="weight" value={checkValue(this.state.weight)} onChange={e => this.onChange(e, e.target.value)}/>
-              <input className="checkbox" type="checkbox" name="available" checked={this.checkboxValue()} ref="availableCheck" onChange={this.checkboxCheck} />
+              <div className="buttons has-addons is-rounded">
+                <label className="label">Aktiv produkt: </label>
+                <span className={this.state.available ? "button is-rounded is-success" : "button is-rounded"} onClick={(e) => this.changeActive(e)}>Ja</span>
+                <span className={!this.state.available ? "button is-rounded is-danger" : "button is-rounded"} onClick={(e) => this.changeActive(e)}>Nej</span>
+              </div>
               </div>
               <div className="field is-grouped">
               <div className="control">

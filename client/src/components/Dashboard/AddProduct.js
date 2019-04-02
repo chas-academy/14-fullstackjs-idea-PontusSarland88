@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { registerProduct } from '../../actions/productActions';
+import './styles.css';
 
 class AddProduct extends Component {
   constructor() {
@@ -24,10 +25,6 @@ class AddProduct extends Component {
     this.setState({[e.target.name]: e.target.value});
   }
 
-  checkboxCheck = (e) => {
-    this.setState({[e.target.name]: this.refs.availableCheck.checked});
-  }
-
   onSubmit = (e) => {
     e.preventDefault();
     const newProduct = {
@@ -40,6 +37,18 @@ class AddProduct extends Component {
       available: this.state.available,
     }
     this.props.registerProduct(newProduct, this.props.history);
+  }
+
+  changeActive= (e) => {
+    if(this.state.available) {
+      this.setState({
+        available: false
+      });
+    } else {
+      this.setState({
+        available: true
+      });
+    }
   }
 
   render() {
@@ -86,12 +95,10 @@ class AddProduct extends Component {
                     placeholder="Vikt (gram)" value={this.state.weight} onChange={this.onChange}/>
                 </p>
               </div>
-              <div className="field control">
-                <label className="checkbox"> 
-                  Aktiv produkt
-                  <input className="checkbox" name="available" type="checkbox" 
-                    ref="availableCheck" onChange={this.checkboxCheck}/>
-                </label>
+              <div className="buttons has-addons is-rounded">
+                <label className="label">Aktiv produkt: </label>
+                <span className={this.state.available ? "button is-rounded is-success" : "button is-rounded"} onClick={(e) => this.changeActive(e)}>Ja</span>
+                <span className={!this.state.available ? "button is-rounded is-danger" : "button is-rounded"} onClick={(e) => this.changeActive(e)}>Nej</span>
               </div>
               <div className="field is-grouped">
                 <div className="control">

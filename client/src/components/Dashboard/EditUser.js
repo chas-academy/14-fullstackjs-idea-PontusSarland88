@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 // import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getAllUsers, deleteUser } from '../../actions/userActions';
-
+import { getAllUsers, deleteUser, updateUser } from '../../actions/userActions';
+import 'bulma-switch'; 
+import './styles.css';
 class EditUser extends Component {
   constructor() {
     super();
@@ -26,30 +27,43 @@ class EditUser extends Component {
     })
   }
 
-  onSubmit(e) {
+  onSubmit = (e) => {
     e.preventDefault();
     const updatedProduct = {
       id: this.state.id,
       name: this.state.name,
-
+      email: this.state.email,
     }  
+    this.props.updateUser(updatedProduct, this.props.history);
   }
 
   onChange = (e, value) => {
     this.setState({[e.target.name]: value});
   }
 
-  checkboxCheck = (e) => {
-    this.setState({[e.target.name]: this.refs.availableCheck.checked});
-  }
+  // checkboxCheck = (e) => {
+  //   this.setState({[e.target.name]: this.refs.availableCheck.checked});
+  // }
 
-  checkboxValue = () => {
-    return this.state.role ? "checked" : ""
-  }
+  // checkboxValue = () => {
+  //   return this.state.role ? "checked" : ""
+  // }
 
   deleteAUser = (e) => {
-    e.preventDefault(); debugger;
+    e.preventDefault();
     this.props.deleteUser(this.state.id, this.props.history);
+  }
+
+  changeActive= (e) => {
+    if(this.state.role) {
+      this.setState({
+        role: false
+      });
+    } else {
+      this.setState({
+        role: true
+      });
+    }
   }
 
   render() {
@@ -59,12 +73,11 @@ class EditUser extends Component {
           <form onSubmit={this.onSubmit} key={this.props.key}>
             <input className="input" type="text" name="name" value={this.state.name} onChange={e => this.onChange(e, e.target.value)}/>
             <input className="input" type="text" name="email"  value={this.state.email} onChange={e => this.onChange(e, e.target.value)}/>
-            <div className="level">
-                <div className="level-left">              
-                  <p className="level-item">Administratör</p>
-                  <input className="checkbox level-item" type="checkbox" name="role" checked={this.checkboxValue()} ref="availableCheck" onChange={this.checkboxCheck} />
+            <div className="field has-addons is-rounded">
+                <label className="label">Administratör: </label>
+                <span className={this.state.role ? "button is-rounded is-success " : "button is-rounded"} onClick={(e) => this.changeActive(e)}>Ja</span>
+                <span className={!this.state.role ? "button is-rounded is-danger" : "button is-rounded"} onClick={(e) => this.changeActive(e)}>Nej</span>
               </div>
-            </div>
             <div className="field is-grouped">
               <div className="control">
                   <button className="button is-success is-small is-link">Spara användare</button>
@@ -83,6 +96,7 @@ class EditUser extends Component {
 EditUser.propTypes = {
   getAllUsers: PropTypes.func.isRequired,
   deleteUser: PropTypes.func.isRequired,
+  updateUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 }
 
@@ -91,4 +105,4 @@ const mapStateToProps = (state) => ({
     users: state.users,
 })
 
-export default connect(mapStateToProps, { getAllUsers, deleteUser })(withRouter(EditUser));
+export default connect(mapStateToProps, { getAllUsers, deleteUser, updateUser })(withRouter(EditUser));

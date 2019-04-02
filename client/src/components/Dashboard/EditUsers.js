@@ -26,7 +26,6 @@ class EditUsers extends Component {
   }
 
   render() {
-    console.log(this.state.allUsers);
     return (
       <div className="section">
         <div className="container">

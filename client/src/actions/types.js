@@ -7,3 +7,4 @@ export const CLEAR_CURRENT_PROFILE = 'CLEAR_CURRENT_PROFILE';
 export const GET_PROFILES = 'GET_PROFILES';
 export const GET_PRODUCTS = 'GET_PRODUCTS';
 export const GET_USERS = 'GET_USERS';
+export const GET_ORDERS = 'GET_ORDERS';

@@ -34,28 +34,45 @@ class Dashboard extends Component {
           </div>
           </article>
         </div>
-        <div className="box">
-          <Link to="/dashboard/edit/users" className="media-content box">
-            <article className="media">
-              <div className="media-content box">
-                <div className="content">
-                  <h3 className="is-center"> 
-                  Användare
-                  </h3>
+        <div className="box is-centered">
+          <article className="media">
+            <Link to="/dashboard/edit/users" className="media-content box">
+              <article className="media">
+                <div className="media-content box">
+                  <div className="content">
+                    <h3 className="is-centered"> 
+                    Användare
+                    </h3>
+                  </div>
                 </div>
-              </div>
-            </article>
-          </Link>
+              </article>
+            </Link>
+            <Link to="/dashboard/add/user" className="media-content box">
+              <article className="media">
+                <div className="media-content box">
+                  <div className="content">
+                    <h3 className="is-centered"> 
+                    Skapa användare
+                    </h3>
+                  </div>
+                </div>
+              </article>
+            </Link>
+          </article>
         </div>
         <div className="box">
           <article className="media">
-            <div className="media-content box">
-              <div className="content">
-                <h3 className="is-center"> 
-                Ordrar
-                </h3>
-              </div>
-            </div>
+          <Link to="/dashboard/edit/orders" className="media-content box">
+              <article className="media">
+                <div className="media-content box">
+                  <div className="content">
+                    <h3 className="is-centered"> 
+                    Ordrar
+                    </h3>
+                  </div>
+                </div>
+              </article>
+            </Link>
           </article>
         </div>
       </div>

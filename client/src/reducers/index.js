@@ -4,6 +4,7 @@ import errorReducer from './errorReducer';
 import profileReducer from './profileReducer';
 import productsReducer from './productsReducer';
 import usersReducer from './usersReducer';
+import orderReducer from './orderReducer';
 
 export default combineReducers({
   auth: authReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   profile: profileReducer,
   products: productsReducer,
   users: usersReducer,
+  orders: orderReducer,
 });
