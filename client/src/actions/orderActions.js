@@ -13,14 +13,14 @@ import { GET_ERRORS, GET_ORDERS } from './types';
 //     }));
 // };
 
-// export const updateProduct = (updatedProduct, history) => (dispatch) => {
-//   axios.put('/api/products/update', updatedProduct)
-//     .then(res => history.push('/dashboard'))
-//     .catch(err => dispatch({
-//       type: GET_ERRORS,
-//       payload: err.response.data,
-//     }));
-// };
+export const updateOrder = (updatedOrder, history) => (dispatch) => {
+  axios.put(`/api/orders/update/${updatedOrder.id}`, updatedOrder)
+    .then(res => history.push('/dashboard'))
+    .catch(err => dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data,
+    }));
+};
 
 export const setAllOrders = (orders) => {
   return {

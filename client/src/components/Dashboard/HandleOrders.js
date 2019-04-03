@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getAllActiveOrders } from '../../actions/orderActions';
-// import HandleOrder from './HandleOrder';
+import HandleOrder from './HandleOrder';
 
 class HandleOrders extends Component {
   constructor() {
@@ -30,16 +30,15 @@ class HandleOrders extends Component {
     return (
       <div className="section">
         <div className="container">
-          <h2 className="title">Ordrar</h2>
+          <h2 className="title is-2">Ordrar</h2>
         </div>
         <div>
           {this.state.allActiveOrders.length > 0 ? 
             this.state.allActiveOrders.map((val, i) => {
-              return <h1>{val.customerName}</h1>
-              // <EditProduct key={i} productData={val} />
+              return <HandleOrder key={i} orderData={val} />
             })
         :
-            <p>Inga produkter hittades</p>
+            <p>Inga ordrar hittades</p>
           } 
         </div>
       </div>
