@@ -88,7 +88,7 @@ class HandleOrder extends Component {
 					<form onSubmit={this.onSubmit}>
 						<div className="box">
 							<input className="input" name="customerName" type="text" value={this.state.customerName} onChange={e => this.onChange(e, e.target.value)}></input>
-							<input className="input" name="email" type="text" value={this.state.email} onChange={e => this.onChange(e, e.target.value)}></input>
+							<input className="input" name="email" type="email" value={this.state.email} onChange={e => this.onChange(e, e.target.value)}></input>
 							<input className="input" name="street" type="text" value={this.state.street} onChange={e => this.onChange(e, e.target.value)}></input>
 							<input className="input" name="zip" type="text" value={this.state.zip} onChange={e => this.onChange(e, e.target.value)}></input>
 							<input className="input" name="city" type="text" value={this.state.city} onChange={e => this.onChange(e, e.target.value)}></input>
@@ -102,7 +102,7 @@ class HandleOrder extends Component {
 									</div>
 								);
 							})}
-							<input className="input" name="price" type="text" value={this.state.totalSum}></input>
+							<input className="input" name="price" value={this.state.totalSum} onChange={e => this.onChange(e, e.target.value)}></input>
 							<div className="buttons has-addons is-rounded">
                 <label className="label">Aktiv order: </label>
                 <span className={this.state.active ? "button is-rounded is-success" : "button is-rounded"} onClick={(e) => this.changeActive(e)}>Ja</span>
@@ -135,34 +135,3 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, { updateOrder })(withRouter(HandleOrder));
-
-/**
- * {
-    "_id": {
-        "$oid": "5bacf74e34718f53c0e87ca0"
-    },
-    "active": false,
-    "userId": {
-        "$oid": "5baa7fd144f09b0c9c550d7a"
-    },
-    "orderedProducts": [
-        {
-            "_id": {
-                "$oid": "5bacf74e34718f53c0e87ca2"
-            },
-            "productName": "Pralin 1",
-            "price": 22,
-            "quantity": 5
-        },
-    ],
-    "customerName": "Ja",
-    "street": "karlaplan 1",
-    "zip": "18752",
-    "city": "Stockholm",
-    "email": "min@mail.com",
-    "totalSum": 160,
-    "date": {
-        "$date": "2018-09-27T15:29:18.076Z"
-    },
-    "__v": 0
- */

@@ -1,7 +1,8 @@
-import { GET_ORDERS } from '../actions/types';
+import { GET_ORDERS, GET_INACTIVE_ORDERS } from '../actions/types';
 
 const initialState = {
   orders: [],
+  inactiveOrders: [],
 };
 
 export default function (state = initialState, action) {
@@ -10,6 +11,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         orders: action.payload,
+      };
+    case GET_INACTIVE_ORDERS:
+      return {
+        ...state,
+        inactiveOrders: action.payload,
       };
     default:
       return state;

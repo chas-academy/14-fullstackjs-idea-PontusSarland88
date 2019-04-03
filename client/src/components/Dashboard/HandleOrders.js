@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getAllActiveOrders } from '../../actions/orderActions';
+import { getAllActiveOrders, getAllInactiveOrders } from '../../actions/orderActions';
 import HandleOrder from './HandleOrder';
 
 class HandleOrders extends Component {
@@ -16,13 +16,15 @@ class HandleOrders extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.getAllActiveOrders();
+    this.props.getAllInactiveOrders();
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      allActiveOrders: nextProps.orders.orders
+      allActiveOrders: nextProps.orders.orders,
+      allInactiveOrders: nextProps.orders.inactiveOrders,
     });
   }
 
@@ -30,7 +32,7 @@ class HandleOrders extends Component {
     return (
       <div className="section">
         <div className="container">
-          <h2 className="title is-2">Ordrar</h2>
+          <h2 className="title is-2">Aktiva ordrar</h2>
         </div>
         <div>
           {this.state.allActiveOrders.length > 0 ? 
@@ -41,6 +43,18 @@ class HandleOrders extends Component {
             <p>Inga ordrar hittades</p>
           } 
         </div>
+        <div className="container">
+          <h2 className="title is-2">Inaktiva ordrar</h2>
+        </div>
+        <div>
+          {this.state.allInactiveOrders.length > 0 ? 
+            this.state.allInactiveOrders.map((val, i) => {
+              return <HandleOrder key={i} orderData={val} />
+            })
+        :
+            <p>Inga inaktiva ordrar hittades</p>
+          } 
+        </div>
       </div>
     )
   }
@@ -48,12 +62,14 @@ class HandleOrders extends Component {
 
 HandleOrders.propTypes = {
   getAllActiveOrders: PropTypes.func.isRequired,
+  getAllInactiveOrders: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => ({
     auth: state.auth,
     orders: state.orders,
+    inactiveOrders: state.inactiveOrders
 })
 
-export default connect(mapStateToProps, { getAllActiveOrders })(withRouter(HandleOrders));
+export default connect(mapStateToProps, { getAllActiveOrders, getAllInactiveOrders })(withRouter(HandleOrders));

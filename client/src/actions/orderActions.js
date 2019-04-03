@@ -1,8 +1,6 @@
 import axios from 'axios';
-// import jwt_decode from 'jwt-decode';
-// import setAuthToken from '../utils/setAuthToken';
 
-import { GET_ERRORS, GET_ORDERS } from './types';
+import { GET_ERRORS, GET_ORDERS, GET_INACTIVE_ORDERS } from './types';
 
 // export const registerProduct = (productData, history) => (dispatch) => {
 //   axios.post('/api/products/create', productData)
@@ -22,9 +20,9 @@ export const updateOrder = (updatedOrder, history) => (dispatch) => {
     }));
 };
 
-export const setAllOrders = (orders) => {
+export const setAllOrders = (orders, typeOfOrder) => {
   return {
-    type: GET_ORDERS,
+    type: typeOfOrder,
     payload: orders,
   };
 };
@@ -32,11 +30,23 @@ export const setAllOrders = (orders) => {
 export const getAllActiveOrders = () => (dispatch) => {
   axios.get('/api/orders/all/active')
     .then((res) => {
-      dispatch(setAllOrders(res.data));
+      dispatch(setAllOrders(res.data, GET_ORDERS));
     })
     .catch(err => dispatch({
       type: GET_ERRORS,
-      payload: err.response.data,
+      payload: err,
+    }));
+};
+
+export const getAllInactiveOrders = () => (dispatch) => {
+  axios.get('/api/orders/all/inactive')
+    .then(res => dispatch({
+      type: GET_INACTIVE_ORDERS,
+      payload: res.data,
+    }))
+    .catch(err => dispatch({
+      type: GET_ERRORS,
+      payload: err,
     }));
 };
 
