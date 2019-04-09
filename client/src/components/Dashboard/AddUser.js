@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addUser } from '../../actions/userActions';
 import Register from '../Users/Register/Register';
@@ -19,13 +18,11 @@ class AddUser extends Component {
   }
 
   render() {
-    const { user } = this.props.auth;
+    const { user } = this.props.auth; console.log(user);
     return (
         <div className="container is-center">
-        {!user.userRole ? "Du behöver admin rättigheter för att kunna se denna sida" : 
-
-            <Register />
-
+        {!user.userRole ? "Du behöver admin rättigheter för att kunna se denna sida" :
+          <Register />
         }
       </div>
     )

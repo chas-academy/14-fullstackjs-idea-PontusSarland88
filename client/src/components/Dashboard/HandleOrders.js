@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getAllActiveOrders, getAllInactiveOrders } from '../../actions/orderActions';
 import HandleOrder from './HandleOrder';

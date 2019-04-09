@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Cookies from 'universal-cookie';
+
 import 'bulma/css/bulma.css';
 import 'bulma-extensions';
 
@@ -9,12 +11,45 @@ import pralin from '../../pralin.jpg';
 
 function SelectList() {
   var rows = [];
-  for (let i = 0; i  < 20; i ++) {
-    rows.push(<option key={i}>{i}</option>)
+  for (let i = 0; i  < 21; i ++) {
+    rows.push(<option key={i} id={i} value={i}>{i}</option>)
   }
   return (<select>{rows}</select>);
 }
+
 export default class Products extends Component {    
+  constructor() {
+    super();
+    this.amountOfPralins = React.createRef();
+  }
+
+  addToCart = (product, e) => {
+    e.preventDefault();
+    if(this.amountOfPralins.current.childNodes[0].value > 0) {
+      let existingCart = JSON.parse(localStorage.getItem("cart"));
+      if(existingCart == null){
+        existingCart = [];
+      } 
+      let alreadyExists = false;
+      existingCart.forEach(element => {
+        if(element.id == product._id) {
+          alreadyExists = true;
+        }
+      });
+      if(!alreadyExists) {
+        const productToAdd = {
+          id: product._id,
+          productName: product.name,
+          price: product.price,
+          quantity: this.amountOfPralins.current.childNodes[0].value,
+        }
+        localStorage.setItem("productToAdd", JSON.stringify(productToAdd));
+        existingCart.push(productToAdd);
+        localStorage.setItem("cart", JSON.stringify(existingCart));
+      }
+    }
+  }
+
   render() {
     return (
       <div className="box">
@@ -36,10 +71,10 @@ export default class Products extends Component {
                 {this.props.productData.price ? 
                 <p>Pris: {this.props.productData.price} kr/st. </p> : null}
                 <div className="control has-icons-left is-rounded">
-                <div className="select">
+                <div className="select" ref={this.amountOfPralins}>
                 <SelectList />
                 </div>
-                  <button className="button is-right">
+                  <button className="button is-right" onClick={e => this.addToCart(this.props.productData, e)}>
                     <FontAwesomeIcon icon="shopping-cart" />
                   </button>
                 </div>
