@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Cookies from 'universal-cookie';
 
 import 'bulma/css/bulma.css';
 import 'bulma-extensions';
@@ -25,28 +24,33 @@ export default class Products extends Component {
 
   addToCart = (product, e) => {
     e.preventDefault();
+    
     if(this.amountOfPralins.current.childNodes[0].value > 0) {
       let existingCart = JSON.parse(localStorage.getItem("cart"));
       if(existingCart == null){
         existingCart = [];
-      } 
+      }
+
       let alreadyExists = false;
-      existingCart.forEach(element => {
+      const productToAdd = {
+        id: product._id,
+        productName: product.name,
+        price: product.price,
+        quantity: this.amountOfPralins.current.childNodes[0].value,
+      };
+
+      existingCart.forEach((element, index) => {
         if(element.id == product._id) {
+          existingCart[index] = productToAdd;
           alreadyExists = true;
         }
       });
+
       if(!alreadyExists) {
-        const productToAdd = {
-          id: product._id,
-          productName: product.name,
-          price: product.price,
-          quantity: this.amountOfPralins.current.childNodes[0].value,
-        }
-        localStorage.setItem("productToAdd", JSON.stringify(productToAdd));
         existingCart.push(productToAdd);
-        localStorage.setItem("cart", JSON.stringify(existingCart));
       }
+      localStorage.setItem("cart", JSON.stringify(existingCart));
+      this.forceUpdate();
     }
   }
 

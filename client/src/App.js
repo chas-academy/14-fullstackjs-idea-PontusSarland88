@@ -17,6 +17,7 @@ import EditProducts from './components/Dashboard/EditProducts';
 import EditUsers from './components/Dashboard/EditUsers';
 import AddUser from './components/Dashboard/AddUser';
 import HandleOrders from './components/Dashboard/HandleOrders';
+import NewOrder from './components/Orders/NewOrder';
 // import Navbar from './components/Navbar/Navbar';
 import { library } from '@fortawesome/fontawesome-svg-core'
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -41,6 +42,7 @@ class App extends Component {
               <Route exact path="/dashboard/edit/users" component={ EditUsers } />
               <Route exact path="/dashboard/add/user" component={ AddUser } />
               <Route exact path="/dashboard/edit/orders" component={ HandleOrders } />
+              <Route exact path="/neworder" component={ NewOrder } />
             </div>
           </main>
           <Footer />  

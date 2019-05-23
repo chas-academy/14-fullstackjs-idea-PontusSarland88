@@ -7,6 +7,10 @@ const OrderSchema = new Schema({
         type: Schema.Types.ObjectId, ref: 'users'
     },
     orderedProducts: [{
+        id: {
+            type: Number,
+            required: true
+        },
         productName: {
             type: String,
             required: true

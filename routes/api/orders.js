@@ -24,11 +24,13 @@ router.post('/create', passport.authenticate('jwt', {session: false}), (req, res
     //TODO: get real cookie or localstorage and check if valid!
     const myCookie = [
         {
+            id: 1,
             productName: "Pralin 1",
             price: 22,
             quantity: 5
         },
         {
+            id: 2,
             productName: "Pralin 2",
             price: 25,
             quantity: 2
