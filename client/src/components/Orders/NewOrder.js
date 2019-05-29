@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { updateOrder } from '../../actions/orderActions';
 
-function displayEditOrder(product) {
-
-}
+import './Orders.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default class NewOrder extends Component {
   constructor(props) {
@@ -30,6 +29,31 @@ export default class NewOrder extends Component {
 
     localStorage.setItem("cart", JSON.stringify(cart));
     this.forceUpdate(); // here because cart isnt updated if we switch from product page to cart page.
+  }
+
+  addOneToCart = (position, value) => {
+    const cart = Object.assign(this.state.userCart);
+    let newQuantity = cart[position].quantity;
+    
+    if(value === '+') {
+      newQuantity++;
+    } else if(value === '-') {
+      newQuantity--;
+    }
+
+    cart[position].quantity = newQuantity;
+    if(newQuantity < 1) {
+      cart.splice(position, 1);
+    }
+    this.setState({
+      userCart: cart
+    });
+    if(this.state.userCart === []) {
+      localStorage.clear();
+    } else {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }    
+    this.forceUpdate();
   }
 
   render() {
@@ -70,10 +94,15 @@ export default class NewOrder extends Component {
                       <label>Antal:</label>
                     </div>
                     <div className="field-body">
-                      <div className="field">
-                        <div className="control">
-                          <input className="input" id={i} name="quantity" value={this.state.userCart[i].quantity} onChange={e => this.onChange(e, e.target.value)}></input>
-                        </div>
+                      <div id="inputWidht" className="field is-horizontal">
+                        <button className="button" onClick={e => this.addOneToCart(i, '-')}>
+                          <FontAwesomeIcon icon="minus" />
+                        </button>
+                        <input className="input" id={i} name="quantity" value={this.state.userCart[i].quantity} onChange={e => this.onChange(e, e.target.value)}>
+                        </input>
+                        <button className="button" onClick={e => this.addOneToCart(i, '+')}>
+                          <FontAwesomeIcon icon="plus" />
+                        </button>
                       </div>
                     </div>
                   </div>

@@ -21,9 +21,9 @@ import NewOrder from './components/Orders/NewOrder';
 // import Navbar from './components/Navbar/Navbar';
 import { library } from '@fortawesome/fontawesome-svg-core'
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faShoppingCart, faEnvelope, faUser, faKey } from '@fortawesome/free-solid-svg-icons'
+import { faShoppingCart, faEnvelope, faUser, faKey, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faShoppingCart, faEnvelope, faUser, faKey);
+library.add(faShoppingCart, faEnvelope, faUser, faKey, faPlus, faMinus);
 
 class App extends Component {
   render() {

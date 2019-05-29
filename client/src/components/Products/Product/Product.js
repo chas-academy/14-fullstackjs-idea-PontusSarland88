@@ -34,6 +34,8 @@ export default class Products extends Component {
       let alreadyExists = false;
       const productToAdd = {
         id: product._id,
+        image: product.image,
+        weight: product.weight,
         productName: product.name,
         price: product.price,
         quantity: this.amountOfPralins.current.childNodes[0].value,
