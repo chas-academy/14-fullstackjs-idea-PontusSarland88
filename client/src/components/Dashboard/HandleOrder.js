@@ -83,42 +83,42 @@ class HandleOrder extends Component {
   render() {
     return (
       <div className="section">
-				<div>
-					<h3 className="title is-3">{this.state.customerName}'s order: </h3>
-					<form onSubmit={this.onSubmit}>
-						<div className="box">
-							<input className="input" name="customerName" type="text" value={this.state.customerName} onChange={e => this.onChange(e, e.target.value)}></input>
-							<input className="input" name="email" type="email" value={this.state.email} onChange={e => this.onChange(e, e.target.value)}></input>
-							<input className="input" name="street" type="text" value={this.state.street} onChange={e => this.onChange(e, e.target.value)}></input>
-							<input className="input" name="zip" type="text" value={this.state.zip} onChange={e => this.onChange(e, e.target.value)}></input>
-							<input className="input" name="city" type="text" value={this.state.city} onChange={e => this.onChange(e, e.target.value)}></input>
-							<h4 className="title is-4">Produkter: </h4>
-							{this.state.orderedProducts.map((val, i) => {
-								return (
-									<div className="box" key={i}>
-										<p>{val.productName}</p>
-										<p>{val.price}</p>
-										<p>{val.quantity}</p>
-									</div>
-								);
-							})}
-							<input className="input" name="price" value={this.state.totalSum} onChange={e => this.onChange(e, e.target.value)}></input>
-							<div className="buttons has-addons is-rounded">
-                <label className="label">Aktiv order: </label>
-                <span className={this.state.active ? "button is-rounded is-success" : "button is-rounded"} onClick={(e) => this.changeActive(e)}>Ja</span>
-                <span className={!this.state.active ? "button is-rounded is-danger" : "button is-rounded"} onClick={(e) => this.changeActive(e)}>Nej</span>
-              </div>
-							<div className="field is-grouped">
-								<div className="control">
-										<button className="button is-success is-link">Updatera order</button>
+			<div>
+				<h3 className="title is-3">{this.state.customerName}'s order: </h3>
+				<form onSubmit={this.onSubmit}>
+					<div className="box">
+						<input className="input" name="customerName" type="text" value={this.state.customerName} onChange={e => this.onChange(e, e.target.value)}></input>
+						<input className="input" name="email" type="email" value={this.state.email} onChange={e => this.onChange(e, e.target.value)}></input>
+						<input className="input" name="street" type="text" value={this.state.street} onChange={e => this.onChange(e, e.target.value)}></input>
+						<input className="input" name="zip" type="text" value={this.state.zip} onChange={e => this.onChange(e, e.target.value)}></input>
+						<input className="input" name="city" type="text" value={this.state.city} onChange={e => this.onChange(e, e.target.value)}></input>
+						<h4 className="title is-4">Produkter: </h4>
+						{this.state.orderedProducts.map((val, i) => {
+							return (
+								<div className="box" key={i}>
+									<p>{val.productName}</p>
+									<p>{val.price}</p>
+									<p>{val.quantity}</p>
 								</div>
-								<div className="control">
-										<button className="button is-danger is-link" onClick={e => this.deleteAProduct(e, this.state.id)}>Ta bort order</button>
-								</div>  
-							</div>
+							);
+						})}
+						<input className="input" name="price" value={this.state.totalSum} onChange={e => this.onChange(e, e.target.value)}></input>
+						<div className="buttons has-addons is-rounded">
+							<label className="label">Aktiv order: </label>
+							<span className={this.state.active ? "button is-rounded is-success" : "button is-rounded"} onClick={(e) => this.changeActive(e)}>Ja</span>
+							<span className={!this.state.active ? "button is-rounded is-danger" : "button is-rounded"} onClick={(e) => this.changeActive(e)}>Nej</span>
 						</div>
-					</form>
-				</div>
+						<div className="field is-grouped">
+							<div className="control">
+								<button className="button is-success is-link">Updatera order</button>
+							</div>
+							<div className="control">
+									<button className="button is-danger is-link" onClick={e => this.deleteAProduct(e, this.state.id)}>Ta bort order</button>
+							</div>  
+						</div>
+					</div>
+				</form>
+			</div>
       </div>
     )
   }

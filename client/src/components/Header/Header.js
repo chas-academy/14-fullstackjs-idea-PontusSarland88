@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Navbar from '../Navbar/Navbar';
 import { Link } from 'react-router-dom';
 import './Header.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class Header extends Component {
   constructor() {
@@ -28,18 +29,20 @@ class Header extends Component {
               <h1 className="title" >
                   <Link to="/" >Pralinbutiken</Link>
               </h1>
+              <div className="cart-container">
               <Link to={{
-                pathname: '/neworder',
-                state: {
-                  cart: this.state.cart,
-                }
-              }}>
-              Cart</Link >
-              
+                  pathname: '/neworder',
+                  state: {
+                    cart: this.state.cart,
+                  }
+                }}>
+                  <FontAwesomeIcon className="cart-icon" icon="shopping-cart" />
+                  <div className="cart-counter">
+                    {this.state.cart.length}  
+                  </div>
+                </Link >
+              </div>
             </div>
-            <h2 className="subtitle">
-                something something...
-            </h2>
             <Navbar />
           </div>
         </div>

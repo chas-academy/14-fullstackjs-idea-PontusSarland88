@@ -19,6 +19,9 @@ function SelectList() {
 export default class Products extends Component {    
   constructor() {
     super();
+    this.state = {
+      userCart: [],
+    }
     this.amountOfPralins = React.createRef();
   }
 
@@ -51,6 +54,9 @@ export default class Products extends Component {
       if(!alreadyExists) {
         existingCart.push(productToAdd);
       }
+      this.setState({
+        userCart: existingCart
+      });
       localStorage.setItem("cart", JSON.stringify(existingCart));
       this.forceUpdate();
     }

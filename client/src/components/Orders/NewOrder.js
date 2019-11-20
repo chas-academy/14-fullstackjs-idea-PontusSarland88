@@ -53,6 +53,7 @@ export default class NewOrder extends Component {
     } else {
       localStorage.setItem("cart", JSON.stringify(cart));
     }    
+
     this.forceUpdate();
   }
 
