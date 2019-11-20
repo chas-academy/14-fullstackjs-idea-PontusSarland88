@@ -89,7 +89,7 @@ router.post('/create', passport.authenticate('jwt', {session: false}), (req, res
 // @route update api/products/
 // @desc  update product route
 // @access Private
-router.put('/update/:id', passport.authenticate('jwt', {session: false}), (req, res) => {
+router.put('/update', passport.authenticate('jwt', {session: false}), (req, res) => {
     if(req.user.role) {
         // Check that input data is valid
         const { errors, isValid } = validateProduct(req.body);
@@ -98,7 +98,7 @@ router.put('/update/:id', passport.authenticate('jwt', {session: false}), (req, 
             return res.status(400).json(errors);
         }
         // Get prod id from url
-        const prodId = req.params.id;
+        const prodId = req.body.id;
         // Create new object from req.body
         const newProds = {};
         newProds.name = req.body.name;

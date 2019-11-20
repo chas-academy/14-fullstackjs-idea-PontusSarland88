@@ -29,16 +29,16 @@ class Register extends Component {
             name: this.state.name,
             email: this.state.email,
             password: this.state.password,
-            password2: this.state.password2
+            password2: this.state.password2,
         }
         this.props.registerUser(newUser, this.props.history);
     }
 
-    componentDidMount() {
-        if(this.props.auth.isAuthenticated) {
-            this.props.history.push('/dashboard');
-        }
-    }
+    // componentDidMount() {
+    //     if(this.props.auth.isAuthenticated) {
+    //         this.props.history.push('/dashboard');
+    //     }
+    // }
 
     componentWillReceiveProps(nextProps) {
         if(nextProps.errors) {
@@ -49,8 +49,8 @@ class Register extends Component {
     }
     
     render() {
-        const { errors } = this.state;
-        const { user } = this.props.auth;
+        const {errors} = this.state;
+        // const {user} = this.props.auth;
 
     return (
       <div className="container is-centered">
@@ -146,4 +146,4 @@ const mapStateProps = (state) => ({
     auth: state.auth,
     errors: state.errors
 });
-export default connect(mapStateProps, { registerUser })(withRouter(Register));
+export default connect(mapStateProps, {registerUser})(withRouter(Register));

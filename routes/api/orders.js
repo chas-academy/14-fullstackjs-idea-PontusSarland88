@@ -24,11 +24,13 @@ router.post('/create', passport.authenticate('jwt', {session: false}), (req, res
     //TODO: get real cookie or localstorage and check if valid!
     const myCookie = [
         {
+            id: 1,
             productName: "Pralin 1",
             price: 22,
             quantity: 5
         },
         {
+            id: 2,
             productName: "Pralin 2",
             price: 25,
             quantity: 2
@@ -153,7 +155,7 @@ router.get('/inactive', passport.authenticate('jwt', {session: false}), (req, re
 // @route PUT api/orders/update/:id
 // @desc update order route
 // @access Private
-router.put('/updateorder/:id', passport.authenticate('jwt', {session: false}), (req, res) => {
+router.put('/update/:id', passport.authenticate('jwt', {session: false}), (req, res) => {
     if(req.user.role) {
         const { errors, isValid } = validateOrderInput(req.body);
 
@@ -162,25 +164,25 @@ router.put('/updateorder/:id', passport.authenticate('jwt', {session: false}), (
         }
 
         //TODO: get real products from user and check if valid!
-        const userProducts = [
-            {
-                productName: "Pralin 1",
-                price: 22,
-                quantity: 5
-            },
-            {
-                productName: "Pralin 2",
-                price: 25,
-                quantity: 2
-            }
-        ];
+        // const userProducts = [
+        //     {
+        //         productName: "Pralin 1",
+        //         price: 22,
+        //         quantity: 5
+        //     },
+        //     {
+        //         productName: "Pralin 2",
+        //         price: 25,
+        //         quantity: 2
+        //     }
+        // ];
 
         const updatedUserOrder = new Order({
             active: req.body.active,
             _id: req.params.id,
             userId: req.user.id,
             // orderedProducts: req.body.orderedProducts,
-            orderedProducts: userProducts,
+            orderedProducts: req.body.orderedProducts,
             customerName: req.body.customerName,
             street: req.body.street,
             zip: req.body.zip,
