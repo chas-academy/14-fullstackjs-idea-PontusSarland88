@@ -35,6 +35,7 @@ app.use('/api/products', products);
 app.use('/api/orders', orders);
 // app.use('/api/orderRows', orderRows);
 
+// For production
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
     app.get('*', (req, res) => {
