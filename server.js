@@ -17,9 +17,11 @@ app.use(bodyParser.json());
 // DB confix
 const db = require('./config/keys').mongoURI;
 
+const MONGODB_URI = process.env.MONGODB_URI || db;
+
 // Connect to MongoDB
 mongoose
-    .connect(db, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
+    .connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
     .then(() => console.log('MongoDB Connected'))
     .catch(err => console.log(err));
 
@@ -35,12 +37,12 @@ app.use('/api/products', products);
 app.use('/api/orders', orders);
 // app.use('/api/orderRows', orderRows);
 
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static('client/build'));
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-    });
-}
+// if (process.env.NODE_ENV === 'production') {
+//     app.use(express.static('client/build'));
+//     app.get('*', (req, res) => {
+//         res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+//     });
+// }
 
 const port = process.env.PORT || 5000;
 

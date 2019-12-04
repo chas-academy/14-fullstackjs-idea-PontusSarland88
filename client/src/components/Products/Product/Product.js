@@ -30,7 +30,7 @@ export default class Products extends Component {
     
     if(this.amountOfPralins.current.childNodes[0].value > 0) {
       let existingCart = JSON.parse(localStorage.getItem("cart"));
-      if(existingCart == null){
+      if(existingCart === null){
         existingCart = [];
       }
 
@@ -45,7 +45,7 @@ export default class Products extends Component {
       };
 
       existingCart.forEach((element, index) => {
-        if(element.id == product._id) {
+        if(element.id === product._id) {
           existingCart[index] = productToAdd;
           alreadyExists = true;
         }
