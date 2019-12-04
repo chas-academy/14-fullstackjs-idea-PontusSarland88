@@ -2,6 +2,9 @@
   "name": "14-fullstackjs-idea-pontussarland88",
   "version": "1.0.0",
   "description": "webpage with webshop for pralines",
+  "engines": {
+    "node": "12.13.1"
+  },
   "main": "server.js",
   "scripts": {
     "client-install": "npm install --prefix client",
@@ -27,7 +30,7 @@
     "concurrently": "^4.0.1",
     "express": "^4.16.3",
     "jsonwebtoken": "^8.3.0",
-    "mongoose": "^5.7.12",
+    "mongoose": "^5.7.5",
     "node": "^8.9.1",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
