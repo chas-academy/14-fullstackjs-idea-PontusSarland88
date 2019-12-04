@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { updateOrder } from '../../actions/orderActions';
+// import { updateOrder } from '../../actions/orderActions';
 
 import './Orders.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

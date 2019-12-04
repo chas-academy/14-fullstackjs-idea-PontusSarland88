@@ -19,7 +19,7 @@ import AddUser from './components/Dashboard/AddUser';
 import HandleOrders from './components/Dashboard/HandleOrders';
 import NewOrder from './components/Orders/NewOrder';
 // import Navbar from './components/Navbar/Navbar';
-import { library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShoppingCart, faEnvelope, faUser, faKey, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'
 
